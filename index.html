@@ -1,13 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Word</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ยินดีต้อนรับ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: "Prompt", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      background: #FFDAB9; /* เปลี่ยนสีพื้นหลัง */
+    }
+
+    /* คลื่นน้ำเคลื่อนไหว */
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 300%;
+      height: 100%;
+      background: url('https://i.imgur.com/ax6whMS.png') repeat-x;
+      background-size: 1000px 200px;
+      animation: waveMove 12s linear infinite;
+      opacity: 0.5;
+      transform: translateY(30%);
+    }
+
+    .wave:nth-child(2) {
+      animation-delay: -4s;
+      opacity: 0.3;
+    }
+
+    .wave:nth-child(3) {
+      animation-delay: -7s;
+      opacity: 0.2;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateX(0) translateY(30%); }
+      100% { transform: translateX(-50%) translateY(30%); }
+    }
+
+    /* แสงระยิบ */
+    .light {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      mix-blend-mode: overlay;
+      animation: shimmer 10s ease-in-out infinite alternate;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translate(-20%, -20%) rotate(0deg); }
+      100% { transform: translate(20%, 20%) rotate(360deg); }
+    }
+
+    /* กล่องข้อความ */
+    .card {
+      background: rgba(255, 255, 255, 0.95); /* เปลี่ยนเป็นสีขาว */
+      padding: 50px 80px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      color: #333;
+      backdrop-filter: blur(10px);
+      z-index: 5;
+      animation: fadeIn 2s ease-in-out;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 5px rgba(255, 200, 150, 0.5);
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+    }
+
+    .emoji {
+      font-size: 1.5rem;
+    }
+
+    /* เอฟเฟกต์เรืองแสงรอบกล่อง */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 25px;
+      background: linear-gradient(60deg, #fff6c3, #ffd6a5, #ffeebb, #fff6c3);
+      background-size: 400% 400%;
+      animation: glowMove 6s ease infinite;
+      z-index: -1;
+      filter: blur(10px);
+      opacity: 0.6;
+    }
+
+    @keyframes glowMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ฟองสบู่ */
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: bubbleRise linear infinite;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes bubbleRise {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* ดอกไม้ร่วงหล่น */
+    .falling-flower {
+      position: absolute;
+      top: -50px;
+      font-size: 25px;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Animation แบบใบไม้ร่วง - โยกไปมาและหมุน */
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(25vh) translateX(30px) rotate(90deg);
+      }
+      50% {
+        transform: translateY(50vh) translateX(-20px) rotate(180deg);
+      }
+      75% {
+        transform: translateY(75vh) translateX(40px) rotate(270deg);
+      }
+      100% {
+        transform: translateY(100vh) translateX(0) rotate(360deg);
+        opacity: 0.7;
+      }
+    }
+
+    @keyframes fall2 {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(25vh) translateX(-40px) rotate(-90deg);
+      }
+      50% {
+        transform: translateY(50vh) translateX(25px) rotate(-180deg);
+      }
+      75% {
+        transform: translateY(75vh) translateX(-30px) rotate(-270deg);
+      }
+      100% {
+        transform: translateY(100vh) translateX(10px) rotate(-360deg);
+        opacity: 0.7;
+      }
+    }
+
+    @keyframes fall3 {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(25vh) translateX(20px) rotate(120deg);
+      }
+      50% {
+        transform: translateY(50vh) translateX(-35px) rotate(240deg);
+      }
+      75% {
+        transform: translateY(75vh) translateX(15px) rotate(360deg);
+      }
+      100% {
+        transform: translateY(100vh) translateX(-10px) rotate(480deg);
+        opacity: 0.7;
+      }
+    }
+
+  </style>
 </head>
 <body>
-    
-    <h1>Hello, My name is [kamolchanok Comnak]</h1>
-    
+  <!-- คลื่นน้ำและแสง -->
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+  <div class="light"></div>
+
+  <!-- กล่องข้อความ -->
+  <div class="card">
+    <h1><span class="emoji">🌷</span> สวัสดีค่ะ <span class="emoji">🎨</span></h1>
+    <p>ดิฉัน นางสาวกมลชนก คำนาค</p>
+    <p>ยินดีที่ได้รู้จักค่ะ <span class="emoji">🤟</span></p>
+  </div>
+
+  <!-- ฟองสบู่และดอกไม้ร่วง -->
+  <script>
+    // ฟองสบู่สีขาว
+    for(let i=0; i<30; i++){
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      const size = Math.random() * 20 + 10;
+      bubble.style.width = `${size}px`;
+      bubble.style.height = `${size}px`;
+      bubble.style.left = `${Math.random() * 100}vw`;
+      bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+      bubble.style.animationDelay = `${Math.random() * 5}s`;
+      
+      // สีขาวความเข้มต่างกัน
+      const alpha = Math.random() * 0.4 + 0.4; // ความโปร่งแสง 0.4-0.8
+      bubble.style.background = `rgba(255, 255, 255, ${alpha})`;
+      
+      document.body.appendChild(bubble);
+    }
+
+    // ดอกไม้ร่วงหล่น
+    function createFallingFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('falling-flower');
+      flower.textContent = '🌺';
+      
+      // ตำแหน่งเริ่มต้นสุ่มตามแนวนอน
+      flower.style.left = `${Math.random() * 100}vw`;
+      
+      // เลือก animation แบบสุ่ม (3 แบบ เพื่อความหลากหลาย)
+      const animations = ['fall', 'fall2', 'fall3'];
+      const selectedAnimation = animations[Math.floor(Math.random() * animations.length)];
+      
+      // ระยะเวลาตก (5-10 วินาที)
+      const duration = Math.random() * 5 + 5;
+      
+      flower.style.animation = `${selectedAnimation} ${duration}s ease-in forwards`;
+      
+      // หน่วงเวลาเริ่มต้น
+      flower.style.animationDelay = `${Math.random() * 2}s`;
+      
+      document.body.appendChild(flower);
+      
+      // ลบดอกไม้หลังจากตกถึงพื้น
+      setTimeout(() => {
+        flower.remove();
+      }, (duration + 2) * 1000);
+    }
+
+    // สร้างดอกไม้ร่วงเป็นระยะๆ
+    function continuousFlowerFall() {
+      createFallingFlower();
+      
+      // สร้างดอกไม้ใหม่ทุก 800-2000 มิลลิวินาที
+      const nextDelay = Math.random() * 1200 + 800;
+      setTimeout(continuousFlowerFall, nextDelay);
+    }
+
+    // เริ่มต้นดอกไม้ร่วงหลายดอกตั้งแต่แรก
+    for(let i = 0; i < 5; i++) {
+      setTimeout(createFallingFlower, i * 500);
+    }
+
+    // เริ่มวนซ้ำ
+    setTimeout(continuousFlowerFall, 2500);
+  </script>
 </body>
 </html>
